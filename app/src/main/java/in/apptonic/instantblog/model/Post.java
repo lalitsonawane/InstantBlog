@@ -1,5 +1,10 @@
 package in.apptonic.instantblog.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by lalitkumarsonawane on 26/11/17.
  */
@@ -40,5 +45,16 @@ public class Post {
 
     public void setDetail_post(String detail_post) {
         this.detail_post = detail_post;
+    }
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title_post);
+        result.put("short_desc", short_desc);
+        result.put("detail_post", detail_post);
+
+        return result;
     }
 }
