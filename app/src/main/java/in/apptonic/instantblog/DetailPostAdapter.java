@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import in.apptonic.instantblog.model.Post;
 
@@ -22,11 +21,14 @@ public class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.Vi
     private List<Post> post = new ArrayList<>();
     private Context context;
 
+    public DetailPostAdapter(){}
+
     public DetailPostAdapter(Context context, List<Post> post){
 
         this.context = context;
         this.post = post;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

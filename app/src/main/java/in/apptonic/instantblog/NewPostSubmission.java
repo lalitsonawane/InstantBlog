@@ -30,8 +30,6 @@ public class NewPostSubmission extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference dbRef;
 
-    List<Post> post_model = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +62,6 @@ public class NewPostSubmission extends AppCompatActivity {
                 } else {
                     submit_post(mTitle, mShortDesc, mDetailPost);
                 }
-
-
             }
         });
 
