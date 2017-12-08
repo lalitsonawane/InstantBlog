@@ -1,5 +1,6 @@
 package in.apptonic.instantblog;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -70,12 +71,10 @@ public class NewPostSubmission extends AppCompatActivity {
     public void submit_post(String title, String short_desc, String detail_post) {
 
         Post post = new Post(title, short_desc, detail_post);
-        String key = dbRef.child("post").push().getKey();
-        Map<String, Object> postValues = post.toMap();
-        Map<String, Object> childUpdate = new HashMap<>();
 
-        childUpdate.put("/post/"+ key, postValues);
-        dbRef.updateChildren(childUpdate);
+        dbRef.push().setValue(post);
+
+        startActivity(new Intent(NewPostSubmission.this, StartActivity.class));
 
     }
 }

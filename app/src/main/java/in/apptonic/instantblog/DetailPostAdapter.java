@@ -23,12 +23,10 @@ public class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.Vi
 
     public DetailPostAdapter(){}
 
-    public DetailPostAdapter(Context context, List<Post> post){
-
-        this.context = context;
+    public DetailPostAdapter(Context context, List<Post> post) {
         this.post = post;
+        this.context = context;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,12 +1,12 @@
 package in.apptonic.instantblog;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import in.apptonic.instantblog.model.Post;
 
@@ -26,9 +27,9 @@ public class StartActivity extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     DetailPostAdapter recyclerAdapter;
-    Context context;
 
     List<Post> posts = new ArrayList<>();
+
 
     public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public DatabaseReference dbRef;
@@ -40,26 +41,31 @@ public class StartActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.myRecyclerView);
         layoutManager = new LinearLayoutManager(this);
+        recyclerAdapter = new DetailPostAdapter();
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new DetailPostAdapter();
-        recyclerView.setAdapter(adapter);
+
 
         dbRef = firebaseDatabase.getReference();
         dbRef.addValueEventListener(new ValueEventListener() {
+            public static final String TAG = "StartActivity.class";
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-      //          Post post = dataSnapshot.getValue(Post.class);
+                Map<String, Post> map = (Map<String, Post>) dataSnapshot.getValue(Post.class);
 
-                posts = (List<Post>) dataSnapshot.child("post").getValue();
 
-                recyclerAdapter = new DetailPostAdapter(context, posts);
-                recyclerAdapter.notifyDataSetChanged();
+          //          Post post = dataSnapshot.getValue(Post.class);
+                    posts.add((Post) map);
+
+                adapter = new DetailPostAdapter(StartActivity.this, posts);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                Log.d(TAG, "Database error" + databaseError);
             }
         });
 
